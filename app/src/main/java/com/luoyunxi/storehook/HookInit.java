@@ -21,7 +21,7 @@ public class HookInit implements IXposedHookLoadPackage {
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
         if (!"android".equals(lpparam.packageName)) return;
 
-        XposedBridge.log("[Store Hook] XposedChooserRedirect: Loaded in system_server");
+        XposedBridge.log("[Store Hook]: Loaded in system_server");
 
         try {
             Class<?> cls = XposedHelpers.findClass(
@@ -67,7 +67,7 @@ public class HookInit implements IXposedHookLoadPackage {
                                 newIntent.putExtras(intent);
                                 intent = newIntent;
 
-                                XposedBridge.log("[Store Hook] XposedChooserRedirect: Replaced mimarket:// with market:// for id=" + id);
+                                XposedBridge.log("[Store Hook]: Replaced mimarket:// with market:// for id=" + id);
                             }
 
                             // 如果是 market://details?id=...
@@ -77,7 +77,7 @@ public class HookInit implements IXposedHookLoadPackage {
 
                                 // 移除指定包名
                                 if (intent.getPackage() != null) {
-                                    XposedBridge.log("[Store Hook] XposedChooserRedirect: Removed package=" + intent.getPackage());
+                                    XposedBridge.log("[Store Hook]: Removed package=" + intent.getPackage());
                                     intent.setPackage(null);
                                 }
 
@@ -85,21 +85,21 @@ public class HookInit implements IXposedHookLoadPackage {
                                 Intent chooser = Intent.createChooser(intent, "选择应用打开");
                                 param.args[index] = chooser;
 
-                                XposedBridge.log("[Store Hook] XposedChooserRedirect: Forced chooser for market://details intent");
+                                XposedBridge.log("[Store Hook]: Forced chooser for market://details intent");
                             }
 
                         } catch (Throwable t) {
-                            XposedBridge.log("[Store Hook] XposedChooserRedirect: Error - " + Log.getStackTraceString(t));
+                            XposedBridge.log("[Store Hook]: Error - " + Log.getStackTraceString(t));
                         }
                     }
                 });
 
-                XposedBridge.log("[Store Hook] XposedChooserRedirect: Hooked method: " + method);
+                XposedBridge.log("[Store Hook]: Hooked method: " + method);
                 break;
             }
 
         } catch (Throwable t) {
-            XposedBridge.log("[Store Hook] XposedChooserRedirect: Failed to hook - " + Log.getStackTraceString(t));
+            XposedBridge.log("[Store Hook]: Failed to hook - " + Log.getStackTraceString(t));
         }
     }
 }
