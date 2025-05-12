@@ -69,7 +69,7 @@ public class HookInit implements IXposedHookLoadPackage {
 
                                 XposedBridge.log("[Store Hook]: Replaced mimarket:// with market:// for id=" + id);
                             }*/
-                            String uriStr = intent.getData() != null ? intent.getData().toString() : null;
+                            String uriStr = data.toString();
 
                             if (uriStr != null) {
                                 // 始终替换 mimarket:// 为 market://
